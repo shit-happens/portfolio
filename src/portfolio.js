@@ -200,10 +200,20 @@ const workExperiences = {
   display: true, // Set it to true to show workExperiences Section
   experience: [
     {
+      role: "Senior Data Scientist",
+      company: "Tesco PLC",
+      companylogo: require("./assets/images/Tesco-Logo.png"),
+      date: "December 2024 – Present",
+      desc: "Part of the CCEC team",
+      descBullets: [
+        "Analyzing areas for improving the CSAT score of the business in the UK region by leveraging customer service agent segmentation and speech analytics"
+      ]
+    },
+    {
       role: "Data Scientist",
       company: "Landmark Group",
       companylogo: require("./assets/images/LANDMARK-OG-TAG-LOGO.jpg"),
-      date: "June 2022 – Present",
+      date: "June 2022 – December 2024",
       desc: "Architected and developed strategic pricing applications and comprehensive data science pipelines, leading to improved profit margins and inventory management efficiency",
       descBullets: [
         "Led the development of Pricescope, a strategic pricing application for Landmark Group brands like MAX and Splash",
