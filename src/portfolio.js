@@ -301,6 +301,20 @@ const achievementSection = {
 
   achievementsCards: [
     {
+      title: "One Tribe Star - Landmark Group",
+      subtitle:
+        "Awarded for exemplary contributions to the Planning markdown management",
+      image: require("./assets/images/LANDMARK-OG-TAG-LOGO.jpg"),
+      imageAlt: "PWA Logo",
+      footerLink: [
+        {
+          name: "Certification",
+          url: "https://drive.google.com/file/d/1gnJRnXyvOoCsYBESSzHysrfznqjmMkZt/view?usp=drive_link"
+        }
+      ]
+    },
+
+    {
       title: "Spot Award - Landmark Group",
       subtitle:
         "Awarded for exemplary contributions to the team in Q4 of FY 23-24",
