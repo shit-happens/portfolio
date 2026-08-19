@@ -1,47 +1,62 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.main-button {
-  background-color: $buttonColor;
-  border: solid 1px $buttonColor;
-  color: $textColorDark;
-  font-weight: 700;
-  width: max-content;
-  padding: 13px 22px;
-  margin-right: 50px;
-  text-transform: uppercase;
-  border-radius: 6px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  margin-top: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out 0s;
-}
-.main-button:hover {
-  background-color: $darkBoxShadow2;
-  color: $buttonColor;
-  transition: all 0.3s ease 0s;
-  transform: translateY(-3px);
-}
-.project-button {
-  display: flex;
+.btn {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  gap: 0.6rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease), background-color 0.25s var(--ease),
+    border-color 0.25s var(--ease), color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
-.project-button > .main-button {
-  margin-right: 0 !important;
+
+.btn:hover {
+  transform: translateY(-2px);
 }
-/* Media Query */
-@media (max-width: 768px) {
-  .main-button {
-    font-size: 0.938rem;
-    padding: 12px 18px;
-    margin-right: 0px;
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn__icon {
+  font-size: 0.8em;
+  transition: transform 0.25s var(--ease);
+}
+
+.btn:hover .btn__icon {
+  transform: translate(2px, -2px);
+}
+
+/* ---- variants ------------------------------------------------------------ */
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 8px 24px -12px var(--accent);
+
+  &:hover {
+    box-shadow: 0 14px 30px -12px var(--accent);
   }
 }
-@media (max-width: 320px) {
-  .main-button {
-    font-size: 0.75rem;
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--border-strong);
+  color: var(--text);
+
+  &:hover {
+    border-color: var(--accent-line);
+    color: var(--accent);
+    background: var(--accent-soft);
   }
 }

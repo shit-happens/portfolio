@@ -1,64 +1,83 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.skills-main-div {
+.skills__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* ---- the three statements ------------------------------------------------ */
+
+.skills__list {
+  list-style: none;
   display: flex;
-  width: 100%;
-  overflow: hidden;
+  flex-direction: column;
 }
 
-.skills-text-div {
-  margin-left: 50px;
+.skills__item {
+  position: relative;
+  padding: 1.5rem 0 1.5rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  transition: color 0.3s var(--ease);
+
+  &:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2.05rem;
+    width: 8px;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s var(--ease);
+  }
+
+  &:hover {
+    color: var(--text);
+
+    &::before {
+      width: 16px;
+    }
+  }
+
+  /* the emoji shipped inside the copy */
+  img {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.12em;
+    margin-right: 0.35rem;
+  }
 }
 
-.skills-main-div > * {
-  flex: 1;
-  margin-bottom: 30px;
+/* ---- toolbox panel ------------------------------------------------------- */
+
+.skills__stack {
+  @include card;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  position: sticky;
+  top: 96px;
 }
 
-.skills-image-div > img {
-  max-width: 100%;
-  height: auto;
+.skills__stack-label {
+  @include eyebrow;
+  display: block;
+  color: var(--text-dim);
+  margin-bottom: 1.25rem;
 }
 
-.skills-heading {
-  font-size: 56px;
-  font-weight: 400;
-}
-.subTitle {
-  color: $subTitle;
-}
+@media (max-width: $bp-md) {
+  .skills__grid {
+    grid-template-columns: 1fr;
+  }
 
-/* Media Query */
-@media (max-width: 1380px) {
-  .skills-heading {
-    font-size: 40px;
-  }
-}
-@media (max-width: 768px) {
-  .skills-heading {
-    font-size: 30px;
-    text-align: center;
-  }
-  .greeting-text-p {
-    font-size: 16px;
-    line-height: normal;
-  }
-  .skills-main-div {
-    flex-direction: column;
-  }
-  .skills-text-div {
-    margin-left: 0px;
-    margin: 20px;
-  }
-  .skills-text {
-    font-size: 16px;
-  }
-  .skills-text-subtitle {
-    font-size: 16px;
-    text-align: center;
-  }
-  .skills-image-div {
-    /* display: none; */
-    order: 2;
+  .skills__stack {
+    position: static;
   }
 }

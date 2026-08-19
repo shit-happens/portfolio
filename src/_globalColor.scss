@@ -1,90 +1,117 @@
-/* Change colors in this file to style to your needs on a global level. 
-Certain colors are used for different and multiply types of elements. 
-For greater control over colors visit each components .scss file. */
+/* ==========================================================================
+   Shared SCSS layer.
 
-// button colors
-$buttonColor: #55198b;
-$buttonHover: #8c43ce;
-$topButtonHover: #000;
+   Runtime theming lives in `index.css` as CSS custom properties (dark by
+   default, `[data-theme="light"]` for the light palette). This file only
+   holds compile-time helpers: breakpoints, mixins and the brand colours that
+   never change with the theme.
+   ========================================================================== */
 
-// text colors light theme
-$titleColor: #000000;
-$textColor: #000000;
-$subTitle: #868e96;
-$cardSubtitle: #666666;
-$talkCardSubTitle: #7f8287;
-$blogCardTitleColor: #262626;
+// ---- breakpoints ----------------------------------------------------------
+$bp-xs: 480px;
+$bp-sm: 680px;
+$bp-md: 900px;
+$bp-lg: 1120px;
+$bp-xl: 1400px;
 
-// text color dark theme
-$textColorDark: #ffffff;
-
-// toggle switch colors
-$toggleCheck: #2196f3;
-$toggleSwitchSliderBG: #ccc;
-
-// githubRepo specific colors
-$githubRepoCardLanguageColorBG: #0000ff;
-$githubRepoCardColor: rgb(88, 96, 105);
-$githubRepoCardRepoCardStatsColor: rgb(106, 115, 125);
-$githubRepoCardRepoNameColor: rgb(36, 41, 46);
-$githubProfileCardLocationTS: #ffebcd;
-$githubProfileCardBorder: #6c63ff;
-
-// light background colors
-$lightBackground1: #fff;
-$lightBackground2: rgb(255, 255, 255);
-$lightBackground3: #f5f2f4;
-$blogCardContainerColor: #586069;
-// dark background colors
-$darkBackground: #171c28;
-
-// light theme box shadows
-$lightBoxShadowDark: rgba(0, 0, 0, 0.2);
-$lightBoxShadow: rgba(0, 0, 0, 0.1);
-$lightBoxShadowDarker: rgba(0, 0, 0, 0.3);
-
-// dark theme box shadows
-$darkBoxShadow: #d9dbdf;
-$darkBoxShadow2: #ffffff;
-
-// linear gradients
-$experienceCardBlurredDivLG: linear-gradient(
-  rgba(0, 0, 0, 0.4),
-  rgba(0, 0, 0, 0.2)
-);
-$experienceCardBannerLG: linear-gradient(
-  rgba(0, 0, 0, 0.7),
-  rgba(0, 0, 0, 0.5)
-);
-
-// borders
-$progressBarBackground: rgb(243, 239, 239);
-$lightBorder1: rgba(211, 211, 211, 0.397);
-$educationCardBorder: #a9a7f9;
-
-// hovers
-$achievementCertificateCardHoverDark: rgba(255, 255, 255, 0.2);
-$blogCardHoverSmallColor: rgba(255, 255, 255, 0.8);
-$headerHoverBG: #f4f4f4;
-$contactDetailHoverTS: #b5b5b5;
-
-// misc backgrounds
-$progressBarSpanBG: #aaa5ff;
-$iconBackground: #333;
-$appHeaderBG: #282c34;
-
-// misc colors
-$skillsColor: #645beb;
-$appLink: #09d3ac;
-
-// social media icons
+// ---- brand colours (theme independent) ------------------------------------
 $faceBook: #3b5998;
 $linkedin: #0e76a8;
-$github: #333;
-$gitlab: #fca326;
+$github: #e6edf3;
+$gitlab: #fc6d26;
 $google: #ea4335;
-$twitter: #1da1f2;
-$medium: #000;
+$twitter: #1d9bf0;
+$medium: #ffffff;
 $stackoverflow: #f48024;
-$instagram: #c13584;
+$instagram: #e1306c;
 $kaggle: #20beff;
+
+// ---- layout ---------------------------------------------------------------
+@mixin container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+@mixin section {
+  @include container;
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+// ---- surfaces -------------------------------------------------------------
+@mixin card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease), background-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+@mixin card-hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+  box-shadow: var(--shadow);
+}
+
+// ---- type -----------------------------------------------------------------
+@mixin eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@mixin display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7.5vw, 5.25rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+@mixin display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+@mixin body-lg {
+  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+// ---- decoration -----------------------------------------------------------
+@mixin hairline {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    var(--accent-line),
+    var(--border),
+    transparent
+  );
+}
+
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}

@@ -1,90 +1,62 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.social-media-div {
-  font-size: 2em;
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
 }
 
-.icon-button {
-  margin-bottom: 10px;
-}
+.socials__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
+    background-color 0.25s var(--ease), transform 0.25s var(--ease);
 
-.icon-button i {
-  color: $textColorDark;
-  border-radius: 2.6rem;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1.3rem;
-  height: 2.6rem;
-  line-height: 2.6rem;
-  margin: 0 5px;
-  position: relative;
-  text-align: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 2.6rem;
-  margin-bottom: 10px;
-  transition: 0.2s ease-in;
-}
-
-.facebook i {
-  background-color: $faceBook;
-}
-
-.linkedin i {
-  background-color: $linkedin;
-}
-
-.github i {
-  background-color: $github;
-}
-
-.gitlab i {
-  background-color: $gitlab;
-}
-
-.google i {
-  background-color: $google;
-}
-
-.twitter i {
-  background-color: $twitter;
-}
-
-.medium i {
-  background-color: $medium;
-}
-
-.stack-overflow i {
-  background-color: $stackoverflow;
-}
-
-.kaggle i {
-  background-color: $kaggle;
-}
-
-.instagram i {
-  background-color: $instagram;
-}
-
-/* Hover Transition */
-.twitter i:hover,
-.google i:hover,
-.gitlab i:hover,
-.github i:hover,
-.linkedin i:hover,
-.facebook i:hover,
-.instagram i:hover,
-.stack-overflow i:hover,
-.kaggle i:hover,
-.medium i:hover {
-  background-color: $textColor;
-}
-
-/* Media Query */
-@media (max-width: 768px) {
-  .social-media-div {
-    text-align: center;
+  &:hover {
+    transform: translateY(-3px);
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+    color: var(--brand, var(--accent));
   }
+}
+
+/* Each network lights up in its own colour on hover. */
+.socials__link--github {
+  --brand: #{$github};
+}
+.socials__link--linkedin {
+  --brand: #{$linkedin};
+}
+.socials__link--gmail {
+  --brand: #{$google};
+}
+.socials__link--gitlab {
+  --brand: #{$gitlab};
+}
+.socials__link--facebook {
+  --brand: #{$faceBook};
+}
+.socials__link--instagram {
+  --brand: #{$instagram};
+}
+.socials__link--twitter {
+  --brand: #{$twitter};
+}
+.socials__link--medium {
+  --brand: var(--text);
+}
+.socials__link--stackoverflow {
+  --brand: #{$stackoverflow};
+}
+.socials__link--kaggle {
+  --brand: #{$kaggle};
 }

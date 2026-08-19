@@ -1,48 +1,35 @@
 import React from "react";
 import "./AchievementCard.scss";
+import Reveal from "../reveal/Reveal";
 
-export default function AchievementCard({cardInfo, isDark}) {
-  function openUrlInNewTab(url, name) {
-    if (!url) {
-      console.log(`URL for ${name} not found`);
-      return;
-    }
-    var win = window.open(url, "_blank");
-    win.focus();
-  }
-
+export default function AchievementCard({cardInfo, index = 0}) {
   return (
-    <div className={isDark ? "dark-mode certificate-card" : "certificate-card"}>
-      <div className="certificate-image-div">
-        <img
-          src={cardInfo.image}
-          alt={cardInfo.imageAlt || "Card Thumbnail"}
-          className="card-image"
-        ></img>
+    <Reveal className="cert" delay={(index % 3) * 80}>
+      <div className="cert__head">
+        <div className="cert__thumb">
+          <img src={cardInfo.image} alt={cardInfo.imageAlt || cardInfo.title} />
+        </div>
+        <h3 className="cert__title">{cardInfo.title}</h3>
       </div>
-      <div className="certificate-detail-div">
-        <h5 className={isDark ? "dark-mode card-title" : "card-title"}>
-          {cardInfo.title}
-        </h5>
-        <p className={isDark ? "dark-mode card-subtitle" : "card-subtitle"}>
-          {cardInfo.description}
-        </p>
-      </div>
-      <div className="certificate-card-footer">
-        {cardInfo.footer.map((v, i) => {
-          return (
-            <span
+
+      <p className="cert__desc">{cardInfo.description}</p>
+
+      {cardInfo.footer && cardInfo.footer.length > 0 && (
+        <div className="cert__footer">
+          {cardInfo.footer.map((link, i) => (
+            <a
               key={i}
-              className={
-                isDark ? "dark-mode certificate-tag" : "certificate-tag"
-              }
-              onClick={() => openUrlInNewTab(v.url, v.name)}
+              className="cert__link"
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {v.name}
-            </span>
-          );
-        })}
-      </div>
-    </div>
+              {link.name}
+              <i className="fas fa-arrow-right" aria-hidden="true" />
+            </a>
+          ))}
+        </div>
+      )}
+    </Reveal>
   );
 }

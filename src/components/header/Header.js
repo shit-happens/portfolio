@@ -1,8 +1,6 @@
-import React, {useContext} from "react";
-import Headroom from "react-headroom";
+import React, {useEffect, useState} from "react";
 import "./Header.scss";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import StyleContext from "../../contexts/StyleContext";
 import {
   greeting,
   workExperiences,
@@ -15,79 +13,103 @@ import {
 } from "../../portfolio";
 
 function Header() {
-  const {isDark} = useContext(StyleContext);
-  const viewExperience = workExperiences.display;
-  const viewOpenSource = openSource.display;
-  const viewSkills = skillsSection.display;
-  const viewAchievement = achievementSection.display;
-  const viewBlog = blogSection.display;
-  const viewTalks = talkSection.display;
-  const viewResume = resumeSection.display;
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [active, setActive] = useState("");
+
+  const links = [
+    skillsSection.display && {href: "#skills", label: "Skills"},
+    workExperiences.display && {href: "#experience", label: "Work Experiences"},
+    openSource.display && {href: "#opensource", label: "Open Source"},
+    achievementSection.display && {
+      href: "#achievements",
+      label: "Achievements"
+    },
+    blogSection.display && {href: "#blogs", label: "Blogs"},
+    talkSection.display && {href: "#talks", label: "Talks"},
+    resumeSection.display && {href: "#resume", label: "Resume"},
+    {href: "#contact", label: "Contact Me"}
+  ].filter(Boolean);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, {passive: true});
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Highlight whichever section currently owns the upper half of the viewport.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const sections = links
+      .map(link => document.querySelector(link.href))
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActive("#" + entry.target.id);
+        });
+      },
+      {rootMargin: "-96px 0px -55% 0px", threshold: 0}
+    );
+    sections.forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Keep the page from scrolling behind the open mobile sheet.
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
-    <Headroom>
-      <header className={isDark ? "dark-menu header" : "header"}>
-        <a href="/" className="logo">
-          <span className="grey-color"> &lt;</span>
-          <span className="logo-name">{greeting.username}</span>
-          <span className="grey-color">/&gt;</span>
+    <header className={`site-header ${isScrolled ? "is-scrolled" : ""}`}>
+      <div className="site-header__inner">
+        <a href="#greeting" className="brand" onClick={() => setIsOpen(false)}>
+          <span className="brand__bracket">&lt;</span>
+          <span className="brand__name">{greeting.username}</span>
+          <span className="brand__bracket">/&gt;</span>
         </a>
-        <input className="menu-btn" type="checkbox" id="menu-btn" />
-        <label
-          className="menu-icon"
-          htmlFor="menu-btn"
-          style={{color: "white"}}
-        >
-          <span className={isDark ? "navicon navicon-dark" : "navicon"}></span>
-        </label>
-        <ul className={isDark ? "dark-menu menu" : "menu"}>
-          {viewSkills && (
-            <li>
-              <a href="#skills">Skills</a>
-            </li>
-          )}
-          {viewExperience && (
-            <li>
-              <a href="#experience">Work Experiences</a>
-            </li>
-          )}
-          {viewOpenSource && (
-            <li>
-              <a href="#opensource">Open Source</a>
-            </li>
-          )}
-          {viewAchievement && (
-            <li>
-              <a href="#achievements">Achievements</a>
-            </li>
-          )}
-          {viewBlog && (
-            <li>
-              <a href="#blogs">Blogs</a>
-            </li>
-          )}
-          {viewTalks && (
-            <li>
-              <a href="#talks">Talks</a>
-            </li>
-          )}
-          {viewResume && (
-            <li>
-              <a href="#resume">Resume</a>
-            </li>
-          )}
-          <li>
-            <a href="#contact">Contact Me</a>
-          </li>
-          <li>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>
-              <ToggleSwitch />
-            </a>
-          </li>
-        </ul>
-      </header>
-    </Headroom>
+
+        <nav className={`nav ${isOpen ? "is-open" : ""}`}>
+          <ul className="nav__list">
+            {links.map(link => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`nav__link ${
+                    active === link.href ? "is-active" : ""
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="site-header__actions">
+          <ToggleSwitch />
+          <button
+            type="button"
+            className={`nav-toggle ${isOpen ? "is-open" : ""}`}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen(open => !open)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
+      </div>
+      <span className="site-header__hairline" aria-hidden="true" />
+    </header>
   );
 }
 export default Header;

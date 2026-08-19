@@ -1,72 +1,39 @@
-import React, {createRef, useContext} from "react";
-import {Fade, Slide} from "react-reveal";
+import React from "react";
 import "./EducationCard.scss";
-import StyleContext from "../../contexts/StyleContext";
+import Reveal from "../reveal/Reveal";
 
-export default function EducationCard({school}) {
-  const imgRef = createRef();
+export default function EducationCard({school, index = 0}) {
+  if (!school.logo) {
+    console.error(
+      `Image of ${school.schoolName} is missing in education section`
+    );
+  }
 
-  const GetDescBullets = ({descBullets}) => {
-    return descBullets
-      ? descBullets.map((item, i) => (
-          <li key={i} className="subTitle">
-            {item}
-          </li>
-        ))
-      : null;
-  };
-  const {isDark} = useContext(StyleContext);
-
-  if (!school.logo)
-    console.error(`Image of ${school.name} is missing in education section`);
   return (
-    <div>
-      <Fade left duration={1000}>
-        <div className="education-card">
-          {school.logo && (
-            <div className="education-card-left">
-              <img
-                crossOrigin={"anonymous"}
-                ref={imgRef}
-                className="education-roundedimg"
-                src={school.logo}
-                alt={school.schoolName}
-              />
-            </div>
-          )}
-          <div className="education-card-right">
-            <h5 className="education-text-school">{school.schoolName}</h5>
-
-            <div className="education-text-details">
-              <h5
-                className={
-                  isDark
-                    ? "dark-mode education-text-subHeader"
-                    : "education-text-subHeader"
-                }
-              >
-                {school.subHeader}
-              </h5>
-              <p
-                className={`${
-                  isDark ? "dark-mode" : ""
-                } education-text-duration`}
-              >
-                {school.duration}
-              </p>
-              <p className="education-text-desc">{school.desc}</p>
-              <div className="education-text-bullets">
-                <ul>
-                  <GetDescBullets descBullets={school.descBullets} />
-                </ul>
-              </div>
-            </div>
+    <Reveal className="edu-card" delay={index * 90}>
+      <div className="edu-card__aside">
+        {school.logo && (
+          <div className="edu-card__logo">
+            <img src={school.logo} alt={school.schoolName} />
           </div>
-        </div>
-      </Fade>
-      <Slide left duration={2000}>
-        <div className="education-card-border"></div>
-      </Slide>
-    </div>
+        )}
+        <span className="edu-card__duration">{school.duration}</span>
+      </div>
+
+      <div className="edu-card__body">
+        <h3 className="edu-card__school">{school.schoolName}</h3>
+        <p className="edu-card__degree">{school.subHeader}</p>
+
+        {school.desc && <p className="edu-card__desc">{school.desc}</p>}
+
+        {school.descBullets && school.descBullets.length > 0 && (
+          <ul className="edu-card__courses">
+            {school.descBullets.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </Reveal>
   );
 }

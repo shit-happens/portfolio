@@ -1,7 +1,24 @@
-@import "../_globalColor";
+@import "../globalColor";
 
-.dark-mode {
-  background-color: $darkBackground;
-  color: white;
-  transition: "0.1s";
+.site-main {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+/* Ambient accent wash behind the top of the page. Purely decorative. */
+.site-main::before {
+  content: "";
+  position: absolute;
+  inset: -20% 0 auto 0;
+  height: 70vh;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+      55% 45% at 20% 20%,
+      var(--accent-soft) 0%,
+      transparent 70%
+    ),
+    radial-gradient(45% 40% at 85% 5%, var(--accent-2-soft) 0%, transparent 70%);
+  opacity: 0.9;
 }

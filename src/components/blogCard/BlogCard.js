@@ -1,36 +1,27 @@
 import React from "react";
 import "./BlogCard.scss";
+import Reveal from "../reveal/Reveal";
 
-export default function BlogCard({blog, isDark}) {
-  function openUrlInNewTab(url, name) {
-    if (!url) {
-      console.log(`URL for ${name} not found`);
-      return;
-    }
-    var win = window.open(url, "_blank");
-    win.focus();
-  }
-
+export default function BlogCard({blog, index = 0}) {
   return (
-    <div onClick={() => openUrlInNewTab(blog.url, blog.title)}>
-      <div className={isDark ? "blog-container dark-mode" : "blog-container"}>
-        <a
-          className={
-            isDark ? "dark-mode blog-card blog-card-shadow" : "blog-card"
-          }
-          href="#blog"
-        >
-          <h3 className={isDark ? "small-dark blog-title" : "blog-title"}>
-            {blog.title}
-          </h3>
-          <p className={isDark ? "small-dark small" : "small"}>
-            {blog.description}
-          </p>
-          <div className="go-corner">
-            <div className="go-arrow">→</div>
-          </div>
-        </a>
-      </div>
-    </div>
+    <Reveal as="li" className="post" delay={index * 80}>
+      <a
+        className="post__link"
+        href={blog.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span className="post__index">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span className="post__body">
+          <span className="post__title">{blog.title}</span>
+          <span className="post__desc">{blog.description}</span>
+        </span>
+        <span className="post__arrow" aria-hidden="true">
+          <i className="fas fa-arrow-right" />
+        </span>
+      </a>
+    </Reveal>
   );
 }

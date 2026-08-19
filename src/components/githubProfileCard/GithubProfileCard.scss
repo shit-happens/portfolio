@@ -1,105 +1,86 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.profile-image {
-  border-radius: 50%;
-  border: 0.5rem solid $githubProfileCardBorder;
-  margin-left: auto;
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  box-shadow: $lightBoxShadow 0 30px 30px -30px;
-  transition: all 0.3s ease-out;
+.gh-profile__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
 }
 
-.profile-image:hover {
-  box-shadow: none;
+.gh-profile__eyebrow {
+  @include eyebrow;
+  display: block;
+  margin-bottom: 1.25rem;
 }
 
-.prof-title {
-  margin: 0;
-  font-size: 40px;
-  font-weight: 400;
+.gh-profile__title {
+  @include display-lg;
+  margin-bottom: 1rem;
 }
 
-.location-div {
-  text-shadow: $githubProfileCardLocationTS;
+.gh-profile__subtitle {
+  @include body-lg;
 }
 
-.opp-div {
-  padding-bottom: 1rem;
+.gh-profile__bio {
+  margin: 2rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+
+  img {
+    width: 0.85em;
+    height: 0.85em;
+    vertical-align: -0.08em;
+  }
 }
 
-.row {
+.gh-profile__facts {
+  list-style: none;
   display: flex;
-}
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
 
-.main-content-profile {
-  flex: 80%;
-}
-
-.image-content-profile {
-  text-align: right;
-  flex: 20%;
-  max-width: 100%;
-  height: auto;
-}
-
-.bio-text {
-  line-height: 30px;
-  font-size: 22px;
-}
-
-.desc-prof {
-  line-height: 45px;
-  font-size: 19px;
-}
-
-.subTitle {
-  color: $subTitle;
-}
-
-@media (max-width: 768px) {
-  .row {
-    display: flex;
-    flex-direction: column;
+  li {
+    @include pill;
   }
 
-  .main-content-profile {
-    text-align: center;
-    order: 2;
+  i {
+    color: var(--accent);
+    font-size: 0.75em;
   }
+}
 
-  .bio-text {
-    font-size: 16px;
-  }
+.gh-profile__avatar {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
 
-  .image-content-profile {
-    margin-left: auto;
-    margin-right: auto;
-    order: 1;
-  }
-
-  .desc-prof {
-    line-height: 30px;
-    font-size: 16px;
-  }
-
-  .profile-image {
-    margin-left: auto;
-    margin-right: auto;
+  img {
+    display: block;
     width: 100%;
-    max-width: 250px;
-    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .gh-profile__panel {
+    grid-template-columns: 1fr;
   }
 
-  .profile-image:hover {
-    box-shadow: $lightBoxShadow 0 50px 50px -50px;
-    transition: 0.3s ease-out;
-  }
-
-  .prof-title {
-    padding-bottom: 1rem;
-    font-size: 32px;
-    text-align: center;
+  .gh-profile__avatar {
+    order: -1;
+    max-width: 220px;
   }
 }

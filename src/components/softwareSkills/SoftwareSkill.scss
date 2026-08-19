@@ -1,31 +1,47 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.dev-icons {
-  padding-left: 0;
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.6rem;
   list-style: none;
-  font-size: 3rem;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  text-align: center;
 }
 
-.software-skill-inline {
-  display: inline-block;
-  margin-right: 20px;
-  margin-bottom: 20px;
+.tool {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-line);
+    background: var(--accent-soft);
+
+    .tool__icon {
+      color: var(--accent);
+    }
+  }
 }
 
-.software-skill-inline > i {
-  color: $subTitle;
+.tool__icon {
+  flex: none;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  transition: color 0.25s var(--ease);
 }
 
-.software-skill-inline > i:hover {
-  color: $skillsColor;
-}
-.software-skill-inline > p {
-  color: $subTitle;
-  font-size: 10px;
-}
-.software-skill-inline > i:hover ~ p {
-  color: $skillsColor;
+.tool__name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

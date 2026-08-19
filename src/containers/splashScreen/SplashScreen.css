@@ -1,23 +1,75 @@
-.splash-container {
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  justify-content: center;
+  gap: 1.75rem;
+  background: var(--bg);
+  animation: splash-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.splash-animation-container {
-  height: 50vh;
+@keyframes splash-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.splash-title-container {
-  font-size: 2.5rem;
-  text-decoration: none;
+.splash__mark {
+  display: flex;
+  gap: 0.15em;
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
-.splash-title {
-  font-family: "Agustina Regular", cursive;
-  font-weight: bold;
-  font-variant-ligatures: no-common-ligatures;
-  -webkit-font-variant-ligatures: no-common-ligatures;
-  padding: 0 20px;
+
+.splash__bracket {
+  color: var(--accent);
+}
+
+.splash__name {
+  animation: splash-flicker 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes splash-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.splash__bar {
+  width: min(220px, 50vw);
+  height: 1px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.splash__bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  animation-name: splash-progress;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes splash-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }

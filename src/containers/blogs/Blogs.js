@@ -1,16 +1,17 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import "./Blog.scss";
 import BlogCard from "../../components/blogCard/BlogCard";
+import SectionHead from "../../components/sectionHead/SectionHead";
 import {blogSection} from "../../portfolio";
-import {Fade} from "react-reveal";
-import StyleContext from "../../contexts/StyleContext";
+
 export default function Blogs() {
-  const {isDark} = useContext(StyleContext);
   const [mediumBlogs, setMediumBlogs] = useState([]);
+
   function setMediumBlogsFunction(array) {
     setMediumBlogs(array);
   }
-  //Medium API returns blogs' content in HTML format. Below function extracts blogs' text content within paragraph tags
+
+  // Medium API returns blog content as HTML. Pull the plain paragraph text out.
   function extractTextContent(html) {
     return typeof html === "string"
       ? html
@@ -20,6 +21,7 @@ export default function Blogs() {
           .join(" ")
       : NaN;
   }
+
   useEffect(() => {
     if (blogSection.displayMediumBlogs === "true") {
       const getProfileData = () => {
@@ -43,56 +45,41 @@ export default function Blogs() {
       getProfileData();
     }
   }, []);
+
   if (!blogSection.display) {
     return null;
   }
+
+  const useFallback =
+    blogSection.displayMediumBlogs !== "true" || mediumBlogs === "Error";
+
+  const posts = useFallback
+    ? blogSection.blogs.map(blog => ({
+        url: blog.url,
+        title: blog.title,
+        description: blog.description
+      }))
+    : mediumBlogs.map(blog => ({
+        url: blog.link,
+        title: blog.title,
+        description: extractTextContent(blog.content)
+      }));
+
   return (
-    <Fade bottom duration={1000} distance="20px">
-      <div className="main" id="blogs">
-        <div className="blog-header">
-          <h1 className="blog-header-text">{blogSection.title}</h1>
-          <p
-            className={
-              isDark ? "dark-mode blog-subtitle" : "subTitle blog-subtitle"
-            }
-          >
-            {blogSection.subtitle}
-          </p>
-        </div>
-        <div className="blog-main-div">
-          <div className="blog-text-div">
-            {blogSection.displayMediumBlogs !== "true" ||
-            mediumBlogs === "Error"
-              ? blogSection.blogs.map((blog, i) => {
-                  return (
-                    <BlogCard
-                      key={i}
-                      isDark={isDark}
-                      blog={{
-                        url: blog.url,
-                        image: blog.image,
-                        title: blog.title,
-                        description: blog.description
-                      }}
-                    />
-                  );
-                })
-              : mediumBlogs.map((blog, i) => {
-                  return (
-                    <BlogCard
-                      key={i}
-                      isDark={isDark}
-                      blog={{
-                        url: blog.link,
-                        title: blog.title,
-                        description: extractTextContent(blog.content)
-                      }}
-                    />
-                  );
-                })}
-          </div>
-        </div>
-      </div>
-    </Fade>
+    <div className="band">
+      <section className="section blogs" id="blogs">
+        <SectionHead
+          eyebrow="08 / Writing"
+          title={blogSection.title}
+          subtitle={blogSection.subtitle}
+        />
+
+        <ol className="blog-list">
+          {posts.map((blog, i) => (
+            <BlogCard key={i} blog={blog} index={i} />
+          ))}
+        </ol>
+      </section>
+    </div>
   );
 }
