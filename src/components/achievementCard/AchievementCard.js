@@ -9,7 +9,10 @@ export default function AchievementCard({cardInfo, index = 0}) {
         <div className="cert__thumb">
           <img src={cardInfo.image} alt={cardInfo.imageAlt || cardInfo.title} />
         </div>
-        <h3 className="cert__title">{cardInfo.title}</h3>
+        <div className="cert__titles">
+          <h3 className="cert__title">{cardInfo.title}</h3>
+          {cardInfo.date && <span className="cert__date">{cardInfo.date}</span>}
+        </div>
       </div>
 
       <p className="cert__desc">{cardInfo.description}</p>

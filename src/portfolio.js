@@ -22,11 +22,13 @@ const illustration = {
 const greeting = {
   username: "shit-happens",
   title: "Hi all, I'm Anshit",
+  tagline: "Senior Data Scientist · Pricing, Revenue & Retail Analytics",
   subTitle: emoji(
-    "A dedicated Data Scientist 🚀 with 3+ years of experience. Proficient in Python, Pyspark, and SQL. Passionate about using data to drive business growth and boost revenue. Let's transform your data into success."
+    "A dedicated Data Scientist 🚀 with 4+ years of experience across pricing, customer intelligence and retail analytics. Proficient in Python, PySpark, and SQL. I have delivered 50M+ AED revenue impact and £50M revenue uplift by turning data into commercial decisions. Let's transform your data into success."
   ),
-  // resumeLink:
-  //   "https://drive.google.com/file/d/1DAahWlAeJOLrwpGKOyYgO_Cr6xTx0iAR/view?usp=sharing", // Set to empty to hide the button
+  // Served from the public/ folder so the file keeps a stable, shareable URL
+  resumeLink: process.env.PUBLIC_URL + "/Anshit_Vishwakarma_Resume.pdf",
+  resumeFileName: "Anshit_Vishwakarma_Resume.pdf",
   displayGreeting: true // Set false to hide this section, defaults to true
 };
 
@@ -64,6 +66,17 @@ const skillsSection = {
     emoji(
       "⚡ Skilled in leveraging Azure's powerful tools and services to streamline and enhance the entire data science workflow"
     )
+  ],
+
+  // Business / analytics domains, shown as pills above the toolbox
+  focusAreas: [
+    "Pricing Optimization",
+    "Revenue Analytics",
+    "Retail Analytics",
+    "Demand Forecasting",
+    "Inventory Optimization",
+    "Decision Science",
+    "Customer Intelligence"
   ],
 
   /* Make Sure to include correct Font Awesome Classname to view your icon
@@ -107,8 +120,20 @@ https://fontawesome.com/icons?d=gallery */
       fontAwesomeClassname: "fas fa-cloud"
     },
     {
+      skillName: "azure-databricks",
+      fontAwesomeClassname: "fas fa-bolt"
+    },
+    {
+      skillName: "xgboost",
+      fontAwesomeClassname: "fas fa-project-diagram"
+    },
+    {
+      skillName: "lightgbm",
+      fontAwesomeClassname: "fas fa-lightbulb"
+    },
+    {
       skillName: "RESTful API",
-      fontAwesomeClassname: "fa-solid fa-network-wired"
+      fontAwesomeClassname: "fas fa-network-wired"
     }
   ],
   display: true // Set false to hide this section, defaults to true
@@ -123,7 +148,7 @@ const educationInfo = {
       schoolName: "Indian Institute of Technology, Roorkee",
       logo: require("./assets/images/IITRLogo.png"),
       subHeader:
-        "Bachelor of Technology in Mechanical & Industrial Engineering",
+        "Bachelor of Technology in Production & Industrial Engineering",
       duration: "August 2017 - July 2021",
       desc: "Course Structure",
       descBullets: [
@@ -187,6 +212,14 @@ const techStack = {
       progressPercentage: "90%"
     },
     {
+      Stack: "XGBoost / LightGBM",
+      progressPercentage: "85%"
+    },
+    {
+      Stack: "Azure Databricks",
+      progressPercentage: "85%"
+    },
+    {
       Stack: "RESTful API",
       progressPercentage: "60%"
     }
@@ -200,25 +233,33 @@ const workExperiences = {
   display: true, // Set it to true to show workExperiences Section
   experience: [
     {
-      role: "Senior Data Scientist",
+      role: "Senior Data Scientist — Customer Intelligence",
       company: "Tesco PLC",
       companylogo: require("./assets/images/Tesco-Logo.png"),
       date: "December 2024 – Present",
-      desc: "Part of the CCEC team",
+      location: "Bengaluru, India",
+      desc: "Driving customer intelligence for UK customers across personalization, customer health and support analytics",
       descBullets: [
-        "Analyzing areas for improving the CSAT score of the business in the UK region by leveraging customer service agent segmentation and speech analytics"
+        "Led customer intelligence initiatives enabling personalized coupons and rewards, increasing engagement and repeat purchase across UK customers",
+        "Built customer health intelligence from food and drinks shopping patterns, contributing to £50M revenue uplift through improved targeting and offer effectiveness",
+        "Owned customer support analytics using CSAT, customer feedback and call interaction data, delivering insights to senior stakeholders that drove a 50% reduction in wait time (10 to 5 minutes) and a 3% improvement in customer satisfaction"
       ]
     },
     {
-      role: "Data Scientist",
+      role: "Data Scientist — Pricing & Retail Analytics",
       company: "Landmark Group",
       companylogo: require("./assets/images/LANDMARK-OG-TAG-LOGO.jpg"),
       date: "June 2022 – December 2024",
-      desc: "Architected and developed strategic pricing applications and comprehensive data science pipelines, leading to improved profit margins and inventory management efficiency",
+      location: "Bengaluru, India",
+      desc: "Owned pricing, revenue and decision science initiatives influencing pricing, markdown and inventory strategies across multiple retail categories",
       descBullets: [
+        "Designed and launched a central pricing optimization platform delivering 50M+ AED annual revenue impact",
         "Led the development of Pricescope, a strategic pricing application for Landmark Group brands like MAX and Splash",
+        "Built demand forecasting and inventory optimization models across 48+ UAE retail stores, improving forecast accuracy and reducing overstocking",
         "Implemented machine learning models for sales prediction, product analysis, and price elasticity using Azure Databricks, PySpark, and machine learning libraries",
-        "Created and deployed the Margin Estimator tool for analyzing the impact of stock availability and markdowns on margin percentage and revenue"
+        "Developed scalable analytics pipelines on Azure Databricks (PySpark), improving turnaround time by 200%",
+        "Created and deployed the Margin Estimator tool for analyzing the impact of stock availability and markdowns on margin percentage and revenue",
+        "Partnered with pricing heads and senior leadership to drive margin expansion and profitability improvements"
       ]
     },
     {
@@ -226,10 +267,11 @@ const workExperiences = {
       company: "Larsen & Toubro Infotech",
       companylogo: require("./assets/images/LTI_Lets_solve.png"),
       date: "Jul 2021 – Jan 2022",
-      desc: "Developed and optimized cloud data extraction modules, enhancing data processing efficiency and user experience",
+      location: "Mumbai, India",
+      desc: "Built cloud-based data extraction and processing pipelines, improving enterprise data availability and reliability",
       descBullets: [
         "Developed a cloud data extraction module using RESTful APIs to efficiently retrieve JSON data from diverse cloud servers",
-        "Optimized data processing using Python libraries such as threading, multiprocessing, and asyncio, achieving a 75% reduction in extraction time",
+        "Optimized large-scale data workflows using Python concurrency techniques such as threading, multiprocessing and asyncio, achieving a 75% reduction in processing time",
         "Streamlined user experience by converting JSON data to CSV format and automating file saving with email notifications"
       ]
     }
@@ -302,8 +344,9 @@ const achievementSection = {
   achievementsCards: [
     {
       title: "One Tribe Star - Landmark Group",
+      date: "Sep 2024",
       subtitle:
-        "Awarded for exemplary contributions to the Planning markdown management",
+        "Recognized for exemplary contributions to planning and markdown management, driving commercial decision-making",
       image: require("./assets/images/LANDMARK-OG-TAG-LOGO.jpg"),
       imageAlt: "PWA Logo",
       footerLink: [
@@ -316,8 +359,9 @@ const achievementSection = {
 
     {
       title: "Spot Award - Landmark Group",
+      date: "Jun 2024",
       subtitle:
-        "Awarded for exemplary contributions to the team in Q4 of FY 23-24",
+        "Awarded for high-impact analytics contributions during Q4 FY 2023-24",
       image: require("./assets/images/LANDMARK-OG-TAG-LOGO.jpg"),
       imageAlt: "PWA Logo",
       footerLink: [
@@ -330,8 +374,9 @@ const achievementSection = {
 
     {
       title: "Spot Award - Landmark Group",
+      date: "Oct 2023",
       subtitle:
-        "Awarded for exemplary contributions to the team in Q4 of FY 22-23",
+        "Recognized for exceptional delivery and performance during Q4 FY 2022-23",
       image: require("./assets/images/LANDMARK-OG-TAG-LOGO.jpg"),
       imageAlt: "PWA Logo",
       footerLink: [
@@ -398,12 +443,12 @@ const blogSection = {
     {
       url: "https://medium.com/@anshitvishwa111/hosting-machine-learning-models-as-an-api-service-1cf5cb5a1e2f",
       title: "Hosting Machine Learning Models as an API Service",
-      description:
-        "How I have been deploying my ML models?"
+      description: "How I have been deploying my ML models?"
     },
     {
       url: "https://medium.com/@anshitvishwa111/fashions-secret-weapon-unleashing-data-science-in-the-apparel-retail-industry-b21a915a9a4c",
-      title: "Fashion’s Secret Weapon: Unleashing Data Science in the Apparel Retail Industry",
+      title:
+        "Fashion’s Secret Weapon: Unleashing Data Science in the Apparel Retail Industry",
       description:
         "Deep dive into role of data scientists in markdown and assortment planning"
     }
@@ -457,7 +502,8 @@ const contactInfo = {
   subtitle:
     "Hire me, Discuss a project or just want to say hi? My Inbox is open for all.",
   number: "+91-7024503772",
-  email_address: "anshit.vishwakarma.13@gmail.com"
+  email_address: "anshit.vishwakarma.13@gmail.com",
+  location: "Bengaluru, India"
 };
 
 // Twitter Section

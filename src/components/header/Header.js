@@ -95,6 +95,20 @@ function Header() {
         </nav>
 
         <div className="site-header__actions">
+          {greeting.resumeLink && (
+            <a
+              className="header-resume"
+              href={greeting.resumeLink}
+              download={greeting.resumeFileName}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Download resume"
+              aria-label="Download resume"
+            >
+              <i className="fas fa-file-download" aria-hidden="true" />
+              <span className="header-resume__label">Resume</span>
+            </a>
+          )}
           <ToggleSwitch />
           <button
             type="button"

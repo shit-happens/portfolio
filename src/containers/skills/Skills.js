@@ -27,10 +27,23 @@ export default function Skills() {
           ))}
         </ul>
 
-        <Reveal className="skills__stack" delay={120}>
-          <span className="skills__stack-label">Toolbox</span>
-          <SoftwareSkill />
-        </Reveal>
+        <div className="skills__panels">
+          {skillsSection.focusAreas && skillsSection.focusAreas.length > 0 && (
+            <Reveal className="skills__stack" delay={100}>
+              <span className="skills__stack-label">Focus areas</span>
+              <ul className="skills__focus">
+                {skillsSection.focusAreas.map((area, i) => (
+                  <li key={i}>{area}</li>
+                ))}
+              </ul>
+            </Reveal>
+          )}
+
+          <Reveal className="skills__stack" delay={160}>
+            <span className="skills__stack-label">Toolbox</span>
+            <SoftwareSkill />
+          </Reveal>
+        </div>
       </div>
     </section>
   );

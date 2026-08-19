@@ -76,6 +76,13 @@
   }
 }
 
+.contact__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.5rem;
+}
+
 .contact__phone {
   font-family: var(--font-mono);
   font-size: 0.9rem;
@@ -85,6 +92,25 @@
   &:hover {
     color: var(--accent);
   }
+}
+
+.contact__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+
+  i {
+    color: var(--accent);
+    font-size: 0.85em;
+  }
+}
+
+.contact__resume {
+  position: relative;
+  margin-bottom: clamp(2rem, 4vw, 2.75rem);
 }
 
 .contact__socials {

@@ -1,7 +1,6 @@
 import React from "react";
 import "./Footer.scss";
-import emoji from "react-easy-emoji";
-import {greeting} from "../../portfolio";
+import {greeting, contactInfo} from "../../portfolio";
 
 export default function Footer() {
   return (
@@ -14,16 +13,9 @@ export default function Footer() {
         </a>
 
         <div className="site-footer__notes">
-          <p>{emoji("Made with ❤️ by DeveloperFolio Team")}</p>
           <p>
-            Theme by{" "}
-            <a
-              href="https://github.com/saadpasta/developerFolio"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              developerFolio
-            </a>
+            © {new Date().getFullYear()} Anshit Vishwakarma
+            {contactInfo.location ? ` · ${contactInfo.location}` : ""}
           </p>
         </div>
       </div>

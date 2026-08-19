@@ -58,11 +58,40 @@
 
 /* ---- toolbox panel ------------------------------------------------------- */
 
+.skills__panels {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  position: sticky;
+  top: 96px;
+}
+
 .skills__stack {
   @include card;
   padding: clamp(1.5rem, 3vw, 2rem);
-  position: sticky;
-  top: 96px;
+}
+
+.skills__focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+
+  li {
+    @include pill;
+    font-size: 0.72rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease),
+      background-color 0.25s var(--ease);
+
+    &:hover {
+      border-color: var(--accent-line);
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+  }
 }
 
 .skills__stack-label {
@@ -77,7 +106,7 @@
     grid-template-columns: 1fr;
   }
 
-  .skills__stack {
+  .skills__panels {
     position: static;
   }
 }

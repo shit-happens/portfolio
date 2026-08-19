@@ -113,6 +113,37 @@
   gap: 0.75rem;
 }
 
+/* Resume download, always reachable regardless of viewport */
+.header-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 40px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+
+  &:active {
+    transform: none;
+  }
+
+  i {
+    font-size: 0.85rem;
+  }
+}
+
 .nav-toggle {
   display: none;
   position: relative;
@@ -162,6 +193,21 @@
 @media (max-width: $bp-md) {
   .nav-toggle {
     display: block;
+  }
+
+  /* Icon-only once space gets tight, but never hidden. All three action
+     buttons go to a 44px square so they clear the touch-target guidance.
+     The theme toggle sizes itself in ToggleSwitch.scss, which loads later. */
+  .header-resume,
+  .nav-toggle {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .header-resume__label {
+    display: none;
   }
 
   .nav {

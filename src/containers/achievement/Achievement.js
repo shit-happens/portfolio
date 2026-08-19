@@ -25,6 +25,7 @@ export default function Achievement() {
             cardInfo={{
               title: card.title,
               description: card.subtitle,
+              date: card.date,
               image: card.image,
               imageAlt: card.imageAlt,
               footer: card.footerLink
