@@ -30,3 +30,11 @@
     display: block;
   }
 }
+
+/* Match the 44px touch target the other header buttons use on mobile. */
+@media (max-width: $bp-md) {
+  .theme-toggle {
+    width: 44px;
+    height: 44px;
+  }
+}

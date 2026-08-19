@@ -110,6 +110,10 @@
   margin-top: 0.25rem;
 }
 
+.job__location {
+  color: var(--text-dim);
+}
+
 .job__date {
   @include pill;
   flex: none;

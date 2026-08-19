@@ -16,7 +16,12 @@ export default function ExperienceCard({cardInfo, index = 0}) {
           </div>
           <div className="job__titles">
             <h3 className="job__role">{cardInfo.role}</h3>
-            <p className="job__company">{cardInfo.company}</p>
+            <p className="job__company">
+              {cardInfo.company}
+              {cardInfo.location && (
+                <span className="job__location"> · {cardInfo.location}</span>
+              )}
+            </p>
           </div>
           <span className="job__date">{cardInfo.date}</span>
         </header>

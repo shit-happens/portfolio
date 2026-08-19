@@ -37,6 +37,12 @@ export default function Greeting() {
           {greeting.title} <span className="hero__wave">{emoji("👋")}</span>
         </Reveal>
 
+        {greeting.tagline && (
+          <Reveal as="p" className="hero__tagline" delay={120}>
+            {greeting.tagline}
+          </Reveal>
+        )}
+
         <Reveal as="p" className="hero__lede" delay={160}>
           {greeting.subTitle}
         </Reveal>
@@ -46,8 +52,9 @@ export default function Greeting() {
           {greeting.resumeLink && (
             <Button
               text="Download my resume"
-              href={require("./resume.pdf")}
-              download="Resume.pdf"
+              href={greeting.resumeLink}
+              download={greeting.resumeFileName}
+              newTab={true}
               variant="ghost"
               icon="fas fa-arrow-down"
             />

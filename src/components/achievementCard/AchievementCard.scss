@@ -38,11 +38,24 @@
   }
 }
 
+.cert__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
 .cert__title {
   font-size: 1.03rem;
   line-height: 1.3;
   letter-spacing: -0.025em;
   text-wrap: balance;
+}
+
+.cert__date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
 }
 
 .cert__desc {
