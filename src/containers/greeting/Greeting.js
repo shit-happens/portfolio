@@ -1,68 +1,84 @@
-import React, {useContext} from "react";
-import {Fade} from "react-reveal";
+import React from "react";
 import emoji from "react-easy-emoji";
 import "./Greeting.scss";
-import landingPerson from "../../assets/lottie/landingPerson";
-import DisplayLottie from "../../components/displayLottie/DisplayLottie";
 import SocialMedia from "../../components/socialMedia/SocialMedia";
 import Button from "../../components/button/Button";
-import {illustration, greeting} from "../../portfolio";
-import StyleContext from "../../contexts/StyleContext";
+import Reveal from "../../components/reveal/Reveal";
+import {
+  greeting,
+  workExperiences,
+  educationInfo,
+  isHireable
+} from "../../portfolio";
 
 export default function Greeting() {
-  const {isDark} = useContext(StyleContext);
   if (!greeting.displayGreeting) {
     return null;
   }
+
+  const currentRole =
+    workExperiences.display && workExperiences.experience.length
+      ? workExperiences.experience[0]
+      : null;
+  const school =
+    educationInfo.display && educationInfo.schools.length
+      ? educationInfo.schools[0]
+      : null;
+
   return (
-    <Fade bottom duration={1000} distance="40px">
-      <div className="greet-main" id="greeting">
-        <div className="greeting-main">
-          <div className="greeting-text-div">
-            <div>
-              <h1
-                className={isDark ? "dark-mode greeting-text" : "greeting-text"}
-              >
-                {" "}
-                {greeting.title}{" "}
-                <span className="wave-emoji">{emoji("👋")}</span>
-              </h1>
-              <p
-                className={
-                  isDark
-                    ? "dark-mode greeting-text-p"
-                    : "greeting-text-p subTitle"
-                }
-              >
-                {greeting.subTitle}
-              </p>
-              <SocialMedia />
-              <div className="button-greeting-div">
-                <Button text="Contact me" href="#contact" />
-                {greeting.resumeLink && (
-                  <a
-                    href={require("./resume.pdf")}
-                    download="Resume.pdf"
-                    className="download-link-button"
-                  >
-                    <Button text="Download my resume" />
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="greeting-image-div">
-            {illustration.animated ? (
-              <DisplayLottie animationData={landingPerson} />
-            ) : (
-              <img
-                alt="man sitting on table"
-                src={require("../../assets/images/manOnTable.svg")}
-              ></img>
-            )}
-          </div>
-        </div>
+    <section className="hero" id="greeting">
+      <div className="hero__inner">
+        <Reveal className="hero__eyebrow" delay={0}>
+          <span className="hero__status" aria-hidden="true" />
+          Open for opportunities: {isHireable ? "Yes" : "No"}
+        </Reveal>
+
+        <Reveal as="h1" className="hero__title" delay={80}>
+          {greeting.title} <span className="hero__wave">{emoji("👋")}</span>
+        </Reveal>
+
+        <Reveal as="p" className="hero__lede" delay={160}>
+          {greeting.subTitle}
+        </Reveal>
+
+        <Reveal className="hero__actions" delay={240}>
+          <Button text="Contact me" href="#contact" variant="primary" />
+          {greeting.resumeLink && (
+            <Button
+              text="Download my resume"
+              href={require("./resume.pdf")}
+              download="Resume.pdf"
+              variant="ghost"
+              icon="fas fa-arrow-down"
+            />
+          )}
+        </Reveal>
+
+        <Reveal delay={320}>
+          <SocialMedia />
+        </Reveal>
       </div>
-    </Fade>
+
+      {(currentRole || school) && (
+        <Reveal className="hero__meta" delay={400}>
+          {currentRole && (
+            <div className="hero__meta-item">
+              <span className="hero__meta-label">Currently</span>
+              <span className="hero__meta-value">
+                {currentRole.role}, {currentRole.company}
+              </span>
+              <span className="hero__meta-note">{currentRole.date}</span>
+            </div>
+          )}
+          {school && (
+            <div className="hero__meta-item">
+              <span className="hero__meta-label">Education</span>
+              <span className="hero__meta-value">{school.schoolName}</span>
+              <span className="hero__meta-note">{school.duration}</span>
+            </div>
+          )}
+        </Reveal>
+      )}
+    </section>
   );
 }

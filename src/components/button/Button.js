@@ -1,12 +1,28 @@
 import React from "react";
 import "./Button.scss";
 
-export default function Button({text, className, href, newTab}) {
+/**
+ * variant: "primary" (filled accent) | "ghost" (outlined)
+ */
+export default function Button({
+  text,
+  className = "",
+  href,
+  newTab,
+  variant = "primary",
+  download,
+  icon
+}) {
   return (
-    <div className={className}>
-      <a className="main-button" href={href} target={newTab && "_blank"}>
-        {text}
-      </a>
-    </div>
+    <a
+      className={`btn btn--${variant} ${className}`.trim()}
+      href={href}
+      download={download}
+      target={newTab ? "_blank" : undefined}
+      rel={newTab ? "noopener noreferrer" : undefined}
+    >
+      <span className="btn__label">{text}</span>
+      {icon && <i className={`btn__icon ${icon}`} aria-hidden="true" />}
+    </a>
   );
 }

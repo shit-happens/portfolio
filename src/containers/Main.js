@@ -27,6 +27,12 @@ const Main = () => {
   const [isShowingSplashAnimation, setIsShowingSplashAnimation] =
     useState(true);
 
+  // Theme is driven from <html data-theme> so the tokens in index.css apply to
+  // the document background too, not just this subtree.
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  }, [isDark]);
+
   useEffect(() => {
     if (splashScreen.enabled) {
       const splashTimer = setTimeout(
@@ -44,26 +50,28 @@ const Main = () => {
   };
 
   return (
-    <div className={isDark ? "dark-mode" : null}>
+    <div className="site-main">
       <StyleProvider value={{isDark: isDark, changeTheme: changeTheme}}>
         {isShowingSplashAnimation && splashScreen.enabled ? (
           <SplashScreen />
         ) : (
           <>
             <Header />
-            <Greeting />
-            <Skills />
-            <StackProgress />
-            <Education />
-            <WorkExperience />
-            <Projects />
-            <StartupProject />
-            <Achievement />
-            <Blogs />
-            <Talks />
-            <Twitter />
-            <Podcast />
-            <Profile />
+            <main>
+              <Greeting />
+              <Skills />
+              <StackProgress />
+              <Education />
+              <WorkExperience />
+              <Projects />
+              <StartupProject />
+              <Achievement />
+              <Blogs />
+              <Talks />
+              <Twitter />
+              <Podcast />
+              <Profile />
+            </main>
             <Footer />
             <ScrollToTopButton />
           </>

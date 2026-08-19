@@ -1,54 +1,45 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./Podcast.scss";
 import {podcastSection} from "../../portfolio";
-import {Fade} from "react-reveal";
-import StyleContext from "../../contexts/StyleContext";
+import SectionHead from "../../components/sectionHead/SectionHead";
+import Reveal from "../../components/reveal/Reveal";
 
 export default function Podcast() {
-  const {isDark} = useContext(StyleContext);
-
-  if (!podcastSection)
+  if (!podcastSection) {
     console.error("podcastSection object for Podcast section is missing");
+    return null;
+  }
 
   if (!podcastSection.display) {
     return null;
   }
+
   return (
-    <Fade bottom duration={1000} distance="20px">
-      <div className="main">
-        <div className="podcast-header">
-          <h1 className="podcast-header-title">{podcastSection.title}</h1>
-          <p
-            className={
-              isDark
-                ? "dark-mode podcast-header-subtitle"
-                : "subTitle podcast-header-subtitle"
-            }
-          >
-            {podcastSection.subtitle}
-          </p>
-        </div>
-        <div className="podcast-main-div">
-          {podcastSection.podcast.map((podcastLink, i) => {
-            if (!podcastLink) {
-              console.log(
-                `Podcast link for ${podcastSection.title} is missing`
-              );
-            }
-            return (
-              <div key={i}>
-                <iframe
-                  className="podcast"
-                  src={podcastLink}
-                  frameBorder="0"
-                  scrolling="no"
-                  title="Podcast"
-                ></iframe>
-              </div>
-            );
-          })}
-        </div>
+    <section className="section podcasts" id="podcast">
+      <SectionHead
+        eyebrow="Podcast"
+        title={podcastSection.title}
+        subtitle={podcastSection.subtitle}
+      />
+
+      <div className="podcast-grid">
+        {podcastSection.podcast.map((podcastLink, i) => {
+          if (!podcastLink) {
+            console.log(`Podcast link for ${podcastSection.title} is missing`);
+          }
+          return (
+            <Reveal className="podcast" key={i} delay={i * 80}>
+              <iframe
+                className="podcast__frame"
+                src={podcastLink}
+                frameBorder="0"
+                scrolling="no"
+                title={`Podcast ${i + 1}`}
+              />
+            </Reveal>
+          );
+        })}
       </div>
-    </Fade>
+    </section>
   );
 }

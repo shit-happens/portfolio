@@ -1,87 +1,92 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.contact-div-main {
+.contact__panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.5rem, 6vw, 4.5rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+
+/* accent wash in the corner of the panel */
+.contact__panel::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 60%;
+  height: 140%;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    var(--accent-soft),
+    transparent 75%
+  );
+}
+
+.contact__eyebrow {
+  @include eyebrow;
+  display: block;
+  margin-bottom: 1.25rem;
+}
+
+.contact__title {
+  @include display-lg;
+  margin-bottom: 1rem;
+
+  img {
+    width: 0.8em;
+    height: 0.8em;
+    vertical-align: -0.05em;
+  }
+}
+
+.contact__subtitle {
+  @include body-lg;
+  max-width: 38rem;
+}
+
+.contact__details {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: clamp(2rem, 4vw, 3rem) 0;
 }
 
-.dark-mode a {
-  color: $textColorDark;
-}
+.contact__email {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3.6vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: var(--text);
+  word-break: break-word;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: color 0.3s var(--ease), background-size 0.4s var(--ease);
 
-.contact-div-main > * {
-  flex: 1;
-}
-
-.contact-title {
-  font-size: 65px;
-  font-weight: 400;
-}
-
-.contact-detail,
-.contact-detail-email {
-  margin-top: 20px;
-  font-size: 40px;
-  font-weight: 400;
-  color: $subTitle;
-  text-decoration: none;
-}
-
-.contact-detail:hover,
-.contact-detail-email:hover {
-  color: $textColor;
-  text-shadow: 2px 1px 2px $contactDetailHoverTS;
-  transition: all 0.3s;
-}
-
-.contact-subtitle {
-  text-transform: uppercase;
-}
-
-.contact-text-div {
-  margin-top: 1.5rem;
-}
-
-.contact-margin-top {
-  margin-top: 4rem;
-}
-
-.contact-image-div > img {
-  max-width: 100%;
-  height: auto;
-  margin-left: 1.5rem;
-  margin-top: -4rem;
-}
-
-/* Media Query */
-@media (max-width: 1380px), (max-width: 768px) {
-  .contact-title {
-    font-size: 56px;
-    font-weight: 400;
-    text-align: center;
+  &:hover {
+    color: var(--accent);
+    background-size: 100% 1px;
   }
+}
 
-  .contact-title {
-    font-size: 40px;
-    text-align: center;
-  }
+.contact__phone {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: color 0.25s var(--ease);
 
-  .contact-subtitle {
-    font-size: 16px;
-    line-height: normal;
-    text-align: center;
+  &:hover {
+    color: var(--accent);
   }
+}
 
-  .contact-text-div {
-    text-align: center;
-    margin-top: 1.5rem;
-  }
-
-  .contact-detail,
-  .contact-detail-email {
-    font-size: 20px;
-  }
-
-  .contact-image-div {
-    display: none;
-  }
+.contact__socials {
+  position: relative;
 }

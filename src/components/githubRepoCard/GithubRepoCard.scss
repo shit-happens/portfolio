@@ -1,95 +1,92 @@
-@import "../../_globalColor";
+@import "../../globalColor";
 
-.repo-card-div {
-  color: $githubRepoCardColor;
-  background-color: $lightBackground2;
-  box-shadow: $lightBoxShadowDark 0px 10px 30px -15px;
-  padding: 2rem;
-  cursor: pointer;
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-.repo-card-div:hover {
-  box-shadow: $lightBoxShadowDark 0px 20px 30px -10px;
-}
-
-.repo-stats {
+.repo {
+  @include card;
   display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  font-size: 13px;
-  color: $githubRepoCardRepoCardStatsColor;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+  padding: 1.5rem;
+
+  &:hover {
+    @include card-hover;
+
+    .repo__arrow {
+      opacity: 1;
+      transform: none;
+    }
+
+    .repo__name {
+      color: var(--accent);
+    }
+  }
 }
 
-.repo-left-stat {
-  -webkit-box-flex: 1;
-  flex-grow: 1;
-  display: flex;
-}
-
-.language-color {
-  width: 10px;
-  height: 10px;
-  background-color: $githubRepoCardLanguageColorBG;
-  margin-right: 0.25rem;
-  border-radius: 100%;
-}
-
-.repo-left-stat span {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  margin-right: 0.75rem;
-}
-
-.repo-name-div {
+.repo__head {
   display: flex;
   align-items: center;
+  gap: 0.65rem;
 }
 
-.repo-svg {
-  margin-right: 0.5rem;
-  min-width: 16px;
+.repo__glyph {
+  font-size: 0.8rem;
+  color: var(--text-dim);
 }
 
-.repo-name {
-  white-space: nowrap;
+.repo__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.025em;
+  overflow: hidden;
   text-overflow: ellipsis;
-  color: $githubRepoCardRepoNameColor;
-  margin-bottom: 0.75rem;
-  font-size: 25px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  overflow: hidden;
-  margin: 0px;
-  height: 30px;
+  white-space: nowrap;
+  transition: color 0.25s var(--ease);
 }
 
-.repo-star-svg {
-  margin-right: 0.3rem;
+.repo__arrow {
+  font-size: 0.75rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
 }
 
-.repo-description {
-  overflow: hidden;
+.repo__description {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-muted);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.dark-card-mode {
-  background-color: $darkBackground;
-  color: $textColorDark;
-}
-.dark-card-mode p {
-  color: $textColorDark;
+.repo__stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
 }
 
-.dark-card-mode .repo-svg {
-  fill: $textColorDark;
+.repo__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-.dark-card-mode:hover {
-  background-color: $buttonColor !important;
-  box-shadow: 0px 0px 16px $darkBoxShadow;
+.repo__stat--end {
+  margin-left: auto;
+}
+
+.repo__lang-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-dim);
 }

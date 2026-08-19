@@ -1,42 +1,25 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./WorkExperience.scss";
 import ExperienceCard from "../../components/experienceCard/ExperienceCard";
+import SectionHead from "../../components/sectionHead/SectionHead";
 import {workExperiences} from "../../portfolio";
-import {Fade} from "react-reveal";
-import StyleContext from "../../contexts/StyleContext";
 
 export default function WorkExperience() {
-  const {isDark} = useContext(StyleContext);
-  if (workExperiences.display) {
-    return (
-      <div id="experience">
-        <Fade bottom duration={1000} distance="20px">
-          <div className="experience-container" id="workExperience">
-            <div>
-              <h1 className="experience-heading">Experiences</h1>
-              <div className="experience-cards-div">
-                {workExperiences.experience.map((card, i) => {
-                  return (
-                    <ExperienceCard
-                      key={i}
-                      isDark={isDark}
-                      cardInfo={{
-                        company: card.company,
-                        desc: card.desc,
-                        date: card.date,
-                        companylogo: card.companylogo,
-                        role: card.role,
-                        descBullets: card.descBullets
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </Fade>
-      </div>
-    );
+  if (!workExperiences.display) {
+    return null;
   }
-  return null;
+
+  return (
+    <div className="band">
+      <section className="section experience" id="experience">
+        <SectionHead eyebrow="04 / Career" title="Experiences" />
+
+        <ol className="timeline">
+          {workExperiences.experience.map((card, i) => (
+            <ExperienceCard key={i} cardInfo={card} index={i} />
+          ))}
+        </ol>
+      </section>
+    </div>
+  );
 }
